@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Provider } from 'react-redux';  // Redux Provider
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';  // React Query Provider
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from './contexts/AuthContext';
 
+// Create a new QueryClient instance for React Query
+const queryClient = new QueryClient();
+
+// Get the root DOM node
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Wrap the entire app in both providers
+root.render(
+  
+    <QueryClientProvider client={queryClient}>  {/* React Query Provider */}
+    <AuthProvider>
+    <App />
+    </AuthProvider>
+      
+    </QueryClientProvider>
+
+);
